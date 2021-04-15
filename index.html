@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es"><!--lenguaje de la pagina-->
+
+<head>
+	<meta charset="utf-8">
+	<title>NUMERO MAGICO</title>
+	<link type="text/css"  href="estilosjuego.css" rel="stylesheet" media="all">
+</head>
+
+<body >
+	<!-- ========== RELOJ ========= -->
+	<form name="form">
+		<br>
+		<div align="left">
+			<span id="horas">00</span>:<span id="minutos">00</span>:<span id="segundos">00</span><span id="milisegundos"></span>
+		</div>
+		<br>
+		<img src="https://anagarciaazcarate.files.wordpress.com/2011/11/mago1.gif" width="370">
+		<p class="titulo">Adivina el numero magico del 1 al 1000</p>
+		<input type="text" id="dato">
+		<button id="boton" type="button" name="star">Probar</button> 
+		<!--<button  id="boton1" type="button" name="star">star</button>
+		<button  id="boton2" type="button" name="pause">pause</button>pause
+		<button   id="boton3" type="button" name="reset">reset</button>reset-->
+	</form>
+
+	<script type="text/javascript">
+		"use script";
+		let horas=0;
+		let minutos=0;
+		let segundos=0;
+		let milisegundos=0;
+        
+		let cron;
+
+		document.form.star.onclick = () =>star();
+		document.form.pause.onclick = () =>pause();
+		document.form.reset.onclick = () =>reset();
+
+		function star(){
+        pause();
+        cron=setInterval(() =>{timer();},10);
+		}
+
+		function pause(){
+			clearInterval(cron);
+		}
+
+		function reset(){
+			horas=0;
+		    minutos=0;
+		    segundos=0;
+            milisegundos=0;
+		    document.getElementById('horas').innerText='00';
+		       document.getElementById('minutos').innerText='00';
+		          document.getElementById('segundos').innerText='00';
+		           document.getElementById('milisegundos').innerText='';
+		}
+        
+        function timer(){
+
+        	if ((milisegundos += 10) == 1000) {
+
+        		milisegundos=0;
+        		segundos++;
+        	}
+        	if (segundos == 60) {
+        		segundos=0;
+        		minutos++;
+        	}
+
+        	if (minutos == 60) {
+        		minutos=0;
+        		horas++;
+        	}
+
+        	document.getElementById('horas').innerText=returnData(horas);
+		       document.getElementById('minutos').innerText=returnData(minutos);
+		          document.getElementById('segundos').innerText=returnData(segundos);
+		                document.getElementById('milisegundos').innerText='';
+        }
+
+        function returnData(input){
+        	return input > 10 ? input : `0${input}`;
+        }
+	</script>
+
+
+		<!-- ========== JUEGO DEL NUMERO MAGICO ========= -->
+		
+
+		<script type="text/javascript">
+			var contador = 1;
+			var max=1000;
+			var min=1;
+			var numero= Math.ceil(Math.random()*(max-min)+min);
+			numero=parseInt(numero);
+			/*var numero= Math.ceil(Math.random()*1000;*/
+			document.getElementById("boton").addEventListener("click",function function_name(entrada) {
+					// body...
+					var entrada=document.getElementById("dato").value;
+
+					while(Number(entrada)!==numero && contador<10) {
+						if(entrada<numero){
+							entrada = alert("El numero de intentos es ="+(contador)+"\nEl número es Mayor que el introducido. Inténtalo de nuevo");
+						}else{
+							entrada = alert("El numero de intentos es ="+(contador)+"\nEl número es Menor que el introducido. Inténtalo de nuevo");
+						}
+						contador++;
+						document.getElementById("contador").innerHTML = "Intentos = "+ contador;
+					}
+					if(contador==10){
+						alert("Has superado el número máximo de intentos.\nIntentalo de nuevo \nEl numero era = "+numero+
+							"\nRecarga la pagina para volver a jugar" );
+					}else{
+						alert("Lo has logrado \n !!Felicidades!!");
+					}
+				})  
+			</script>
+		</body>
+		<html/>
